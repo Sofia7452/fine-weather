@@ -30,7 +30,7 @@ def app():
         {
             "FLASK_SQLALCHEMY_DATABASE_URI": "sqlite:///:memory:",
             "FLASK_SECRET_KEY": "test_secret_key",
-            "FLASK_WTF_CSRF_ENABLED": "false",
+            # "FLASK_WTF_CSRF_ENABLED": "false",
             "FLASK_TESTING": "true",
         }
     )

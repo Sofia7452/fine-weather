@@ -47,6 +47,8 @@
         No More
       </div>
     </div>
+    <button @click="register">register</button>
+
     <footer class="flex flex-col items-center">
       <div class="text-xl c-slate-800 flex items-center">
         <div class="
@@ -162,7 +164,17 @@ function keypressListener(ev) {
     }
   }
 }
-
+async function register() {
+  let userData = { username:'gjtest',password_hash:'gjtest'}
+  const respRaw = await fetch(`${import.meta.env.VITE_IMG_FETCH_BASE}/user/register`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  });
+  console.log('respRaw',respRaw);
+}
 async function loadMore() {
   loadingImages.value = true
   const resp = await fetch(`${import.meta.env.VITE_IMG_FETCH_BASE}/images?page_size=${PAGE_SIZE}&page=${currPage.value}`)

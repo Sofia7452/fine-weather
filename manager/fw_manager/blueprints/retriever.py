@@ -1,6 +1,9 @@
 from flask import request, Blueprint
 
 from ..models import Image
+from ..models import User, Image, db
+from loguru import logger
+from ..utils import make_resp
 
 
 retriever_bp = Blueprint("retriever", __name__)
@@ -15,4 +18,6 @@ def get_images():
         page=page, per_page=page_size, error_out=False
     )
     images = [p.as_dict() for p in pagination.items]
+    logger.info("retrieved get_images")
+    
     return {"images": images, "pages": pagination.pages, "total": pagination.total}

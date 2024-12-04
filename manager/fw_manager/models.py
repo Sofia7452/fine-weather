@@ -59,6 +59,7 @@ class Base(BaseModel):
 class User(Base):
     username: so.Mapped[str] = so.mapped_column(unique=True, index=True)
     password_hash: so.Mapped[str]
+    status: so.Mapped[int] = so.mapped_column(default=0)
 
 
 class Image(Base):

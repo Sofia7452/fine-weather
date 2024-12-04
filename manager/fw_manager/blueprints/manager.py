@@ -21,6 +21,7 @@ THUMBNAIL_MAX_WIDTH = int(os.environ.get("THUMBNAIL_MAX_WIDTH", 600))
 
 
 manager_bp = Blueprint("manager", __name__)
+user_bp = Blueprint("user", __name__)
 auth = HTTPBasicAuth()
 
 
@@ -66,6 +67,7 @@ def images_page():
         return redirect(
             url_for("get_images", page=1, page_size=page_size, keyword=keyword)
         )
+    logger.info("manager images_page")
     return render_template(
         "manager.html",
         pagination=pagination,
@@ -74,6 +76,27 @@ def images_page():
         edit_form=EditImageForm(),
     )
 
+@user_bp.post("/register")
+def register():
+    """register user."""
+    data = request.json
+    logger.info(f"Received registration data: {data}")
+
+    # 提取用户名和密码哈希
+    username = data.get('username', 'default_username')
+    password_hash = data.get('password_hash', 'default_hash')
+
+    # 创建一个新的 User 对象
+    new_user = User(username=username, password_hash=password_hash)
+
+    # 将新用户添加到会话中
+    db.session.add(new_user)
+
+    # 提交会话以将数据写入数据库
+    db.session.commit()
+    logger.info("register user")
+    #调用数据库用户列表，检查用户申请状态
+    return make_resp()
 
 @manager_bp.post("/images")
 @auth.login_required
@@ -84,6 +107,7 @@ def add_image():
     thumbnail_folder.mkdir(exist_ok=True, parents=True)
 
     form_data = request.form
+    logger.info(f"response-add_image: {request.form}...")
 
     # check repetition
     img_exist = db.session.scalar(db.select(Image).filter_by(title=form_data["title"]))

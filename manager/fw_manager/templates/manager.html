@@ -241,8 +241,9 @@
         async function addImage() {
             const modal = addImageModal._element;
             const form = modal.querySelector("form");
+            console.log('request-form',form);
             const formData = new FormData(form);
-
+            console.log('request-addImage',formData);
             const respRaw = await fetch("/manager/images", {
                 method: "POST",
                 body: formData,
@@ -290,7 +291,7 @@
             const modal = deleteImageModal._element;
 
             const formData = new FormData();
-            formData.set("csrf_token", '{{ csrf_token() }}');
+            // formData.set("csrf_token", '{{ csrf_token() }}');
             const respRaw = await fetch(`/manager/images/${deletingImage}`, {
                 method: "DELETE",
                 body: formData,

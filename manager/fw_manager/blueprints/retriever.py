@@ -1,9 +1,9 @@
 from flask import request, Blueprint
 
 from ..models import Image
-# from ..models import User, Image, db
-# from loguru import logger
-# from ..utils import make_resp
+from ..models import User, Image, db
+from loguru import logger
+from ..utils import make_resp
 
 
 retriever_bp = Blueprint("retriever", __name__)

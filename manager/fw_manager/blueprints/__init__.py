@@ -16,7 +16,7 @@ def index():
 
 def init_app(app: Flask):
     app.register_blueprint(index_bp, url_prefix="/")
-    app.register_blueprint(user_bp, url_prefix="/user")
+    # app.register_blueprint(user_bp, url_prefix="/user")
     app.register_blueprint(manager_bp, url_prefix="/manager")
     app.register_blueprint(retriever_bp, url_prefix="/images")
     app.register_blueprint(error_bp)

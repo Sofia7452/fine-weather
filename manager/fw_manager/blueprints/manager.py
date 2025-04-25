@@ -67,7 +67,6 @@ def images_page():
         return redirect(
             url_for("get_images", page=1, page_size=page_size, keyword=keyword)
         )
-    logger.info("manager images_page")
     return render_template(
         "manager.html",
         pagination=pagination,
@@ -107,7 +106,6 @@ def add_image():
     thumbnail_folder.mkdir(exist_ok=True, parents=True)
 
     form_data = request.form
-    logger.info(f"response-add_image: {request.form}...")
 
     # check repetition
     img_exist = db.session.scalar(db.select(Image).filter_by(title=form_data["title"]))

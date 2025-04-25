@@ -291,7 +291,7 @@
             const modal = deleteImageModal._element;
 
             const formData = new FormData();
-            // formData.set("csrf_token", '{{ csrf_token() }}');
+            formData.set("csrf_token", '{{ csrf_token() }}');
             const respRaw = await fetch(`/manager/images/${deletingImage}`, {
                 method: "DELETE",
                 body: formData,
